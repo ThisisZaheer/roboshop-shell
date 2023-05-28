@@ -11,7 +11,7 @@ echo -e "\e[34mExtracting the Frontend Content\e[0m"
 cd /usr/share/nginx/html &>>/tmp/roboshop.log
 unzip /tmp/frontend.zip &>>/tmp/roboshop.log
 
-# We need to copy the Conf File vim /etc/nginx/default.d/roboshop.conf
+cp roboshop.conf /etc/nginx/default.d/roboshop.conf &>>/tmp/roboshop.log
 
 echo -e "\e[35mStarting Nginx Server\e[0m"
 systemctl enable nginx &>>/tmp/roboshop.log
