@@ -15,7 +15,7 @@ echo -e "\e[32mDownloading the catalogue content"
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip &>>/tmp/roboshop.log
 cd /app
 
-echo -e "\e[Extract the catalogue content\e[0m"
+echo -e "\e[36mExtract the catalogue content\e[0m"
 unzip /tmp/catalogue.zip &>>/tmp/roboshop.log
 cd /app
 
