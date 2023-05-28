@@ -16,7 +16,7 @@ cd /app
 echo -e "\e[32mInstalling NodeJS Depenencies\e[0m"
 npm install &>>/tmp/roboshop.log
 echo -e "\e[32mCopy Service files\e[0m"
-cp /root/roboshop-shell catalogue.service /etc/systemd/system/catalogue.service &>>/tmp/roboshop.log
+cp /root/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>>/tmp/roboshop.log
 #/etc/systemd/system/catalogue.service
 echo -e "\e[32mReload files\e[0m"
 systemctl daemon-reload &>>/tmp/roboshop.log
@@ -24,7 +24,7 @@ echo -e "\e[32mStart the Server\e[0m"
 systemctl enable catalogue &>>/tmp/roboshop.log
 systemctl restart catalogue &>>/tmp/roboshop.log
 echo -e "\e[32mCopy the MongoDB Repo Service\e[0m"
-cp /root/roboshop-shell mongodb.repo /etc/yum.repos.d/mongo.repo &>>/tmp/roboshop.log
+cp /root/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo &>>/tmp/roboshop.log
 #/etc/yum.repos.d/mongo.repo
 echo -e "\e[32mInstall Mongodb Server\e[0m"
 yum install mongodb-org-shell -y &>>/tmp/roboshop.log
