@@ -18,7 +18,7 @@ npm install &>>/tmp/roboshop.log
 echo -e "\e[32mCopy Service files\e[0m"
 cp /root/roboshop-shell catalogue.service /etc/systemd/system/catalogue.service &>>/tmp/roboshop.log
 #/etc/systemd/system/catalogue.service
-echo -e "\e[32mRelaod files\e[0m"
+echo -e "\e[32mReload files\e[0m"
 systemctl daemon-reload &>>/tmp/roboshop.log
 echo -e "\e[32mStart the Server\e[0m"
 systemctl enable catalogue &>>/tmp/roboshop.log
