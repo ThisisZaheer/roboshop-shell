@@ -11,5 +11,5 @@ echo -e "\e[33mupdating IP Address\e[0m"
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf &>>/tmp/roboshop.log
 
 echo -e "\e[33mStart Redis Directory\e[0m"
-systemctl enable redis &>>/tmp/roboshop.logk
+systemctl enable redis &>>/tmp/roboshop.log
 systemctl restart redis &>>/tmp/roboshop.log
