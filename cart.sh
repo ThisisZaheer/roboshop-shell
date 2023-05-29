@@ -16,7 +16,7 @@ cd /app
 echo -e "\e[36m Installing NodeJS Dependency\e[0m"
 npm install &>>/tmp/roboshop.log
 echo -e "\e[36m Copying Cart Service\e[0m"
-cp cart.service /etc/systemd/system/cart.service
+cp /root/roboshop-shell/cart.service /etc/systemd/system/cart.service
 echo -e "\e[36m Reloading Cart Service\e[0m"
 systemctl daemon-reload &>>/tmp/roboshop.log
 echo -e "\e[36m Starting Cart Service\e[0m"
