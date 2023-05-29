@@ -36,7 +36,6 @@ systemctl restart catalogue &>>/tmp/roboshop.log
 echo -e "\e[32mCopy the MongoDB Repo Service\e[0m"
 cp /root/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo &>>/tmp/roboshop.log
 
-
 echo -e "\e[32mInstall Mongodb Server\e[0m"
 yum install mongodb-org-shell -y &>>/tmp/roboshop.log
 
