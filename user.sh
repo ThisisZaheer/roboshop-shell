@@ -23,7 +23,7 @@ echo -e "\e[32mInstalling NodeJS Depenencies\e[0m"
 npm install &>>/tmp/roboshop.log
 
 echo -e "\e[32mCopy Service files\e[0m"
-cp user.service /etc/systemd/system/user.service
+cp /root/roboshop-shell/user.service /etc/systemd/system/user.service
 
 echo -e "\e[32mReload files\e[0m"
 systemctl daemon-reload &>>/tmp/roboshop.log
@@ -33,7 +33,7 @@ systemctl enable user &>>/tmp/roboshop.log
 systemctl restart user &>>/tmp/roboshop.log
 
 echo -e "\e[32mCopy the MongoDB Repo Service\e[0m"
-cp mongodb.repo /etc/yum.repos.d/mongo.repo
+cp /root/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo
 
 echo -e "\e[32mInstall Mongodb Server\e[0m"
 yum install mongodb-org-shell -y &>>/tmp/roboshop.log
