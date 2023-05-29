@@ -12,4 +12,4 @@ sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis.conf /etc/redis/redis.conf &>>/tmp/r
 
 echo -e "\e[33mStart Redis Directory\e[0m"
 systemctl enable redis &>>/tmp/roboshop.logk
-systemctl start redis &>>/tmp/roboshop.log
+systemctl restart redis &>>/tmp/roboshop.log
