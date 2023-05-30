@@ -26,8 +26,7 @@ echo -e "\e[32mInstalling NodeJS Depenencies\e[0m"
 npm install &>>/tmp/roboshop.log
 
 echo -e "\e[32mCopy Service files\e[0m"
-cp /root/roboshop-shell/${component}.service /etc/systemd/system/${component}.service
-
+cp /root/roboshop-shell/"${component}".service /etc/systemd/system/${component}.service
 
 echo -e "\e[32mReload files\e[0m"
 systemctl daemon-reload &>>/tmp/roboshop.log
