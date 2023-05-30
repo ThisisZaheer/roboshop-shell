@@ -1,4 +1,4 @@
-S{componentcomponent = catalogue
+component=catalogue
 
 
 echo -e "\e[32mConfiguration files\e[0m"
