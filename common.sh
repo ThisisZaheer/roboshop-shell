@@ -87,7 +87,7 @@ python()
 {
     echo -e "${color} Installing Python 3.6 Version${nocolor}"
     yum install python36 gcc python3-devel -y &>>/tmp/roboshop.log
-
+    echo $?
     app_presetup
 
     echo -e "${color} Installing the Python Dependcies${nocolor}"
