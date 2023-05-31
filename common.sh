@@ -8,29 +8,31 @@ app_presetup()
 {
     echo -e "${color}Adding User ${nocolor}"
     useradd roboshop &>>${log_file}
+    echo $?
 
     echo -e "${color}Removing default content ${nocolor}"
     rm -rf ${app_path} &>>${log_file}
     mkdir ${app_path}
-
+    echo $?
     echo -e "${color}Downloading the ${component} content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
     cd ${app_path}
-
+    echo $?
     echo -e "${color}Extract the ${component} content ${nocolor}"
     cd ${app_path}
     unzip /tmp/${component}.zip &>>${log_file}
-
+    echo $?
 }
 systemd_setup()
 {
     echo -e "${color}Copy Service files ${nocolor}"
     cp /root/roboshop-shell/${component}.service /etc/systemd/system/${component}.service
-
+    echo $?
     echo -e "${color}Start the ${component} Server ${nocolor}"
     systemctl daemon-reload &>>${log_file}
     systemctl enable ${component} &>>${log_file}
     systemctl restart ${component} &>>${log_file}
+    echo $?
 }
 nodejs()
 {
@@ -90,7 +92,7 @@ python()
 
     echo -e "${color} Installing the Python Dependcies${nocolor}"
     pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
-
+    echo $?
 
     systemd_setup
 }
