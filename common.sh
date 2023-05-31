@@ -13,14 +13,24 @@ app_presetup()
     rm -rf ${app_path} &>>${log_file}
     mkdir ${app_path}
 
-    echo -e "${color}Downloading the $component content ${nocolor}"
-    curl -o /tmp/$component.zip https://roboshop-artifacts.s3.amazonaws.com/$component.zip &>>${log_file}
+    echo -e "${color}Downloading the ${component} content ${nocolor}"
+    curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
     cd ${app_path}
 
-    echo -e "${color}Extract the $component content ${nocolor}"
+    echo -e "${color}Extract the ${component} content ${nocolor}"
     cd ${app_path}
-    unzip /tmp/$component.zip &>>${log_file}
+    unzip /tmp/${component}.zip &>>${log_file}
 
+}
+systemd_setup()
+{
+    echo -e "${color}Copy Service files ${nocolor}"
+    cp /root/roboshop-shell/${component}.service /etc/systemd/system/${component}.service
+
+    echo -e "${color}Start the ${component} Server ${nocolor}"
+    systemctl daemon-reload &>>${log_file}
+    systemctl enable ${component} &>>${log_file}
+    systemctl restart ${component} &>>${log_file}
 }
 nodejs()
 {
@@ -35,15 +45,7 @@ nodejs()
   echo -e "${color}Installing NodeJS Depenencies ${nocolor}"
   npm install &>>${log_file}
 
-  echo -e "${color}Copy Service files ${nocolor}"
-  cp /root/roboshop-shell/$component.service /etc/systemd/system/$component.service
-
-  echo -e "${color}Reload files ${nocolor}"
-  systemctl daemon-reload &>>${log_file}
-
-  echo -e "${color}Start the $component Server ${nocolor}"
-  systemctl enable $component &>>${log_file}
-  systemctl restart $component &>>${log_file}
+  systemd_setup
 }
 mongodb_schema_setup()
 {
@@ -54,25 +56,31 @@ mongodb_schema_setup()
   yum install mongodb-org-shell -y &>>${log_file}
 
   echo -e "${color}Schema files load ${nocolor}"
-  mongo --host mongodb-dev.thisiszaheer.online <${app_path}/schema/$component.js &>>${log_file}
+  mongo --host mongodb-dev.thisiszaheer.online <${app_path}/schema/${component}.js &>>${log_file}
+}
+
+mysql_schema_setup()
+{
+  echo -e "${color} Installing MySQL${nocolor}"
+  yum install mysql -y &>>${log_file}
+
+  echo -e "${color} Loading Schema${nocolor}"
+  mysql -h mysql-dev.thisiszaheer.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>${log_file}
+
 }
 maven()
 {
   echo -e "${color} Installing Maven${nocolor}"
   yum install maven -y &>>${log_file}
+
   app_presetup
+
   echo -e "${color} Installing Dependcies of Maven${nocolor}"
   mvn clean package &>>${log_file}
-  mv target/shipping-1.0.jar shipping.jar &>>${log_file}
-  echo -e "${color} Copying the Shipping Service${nocolor}"
-  cp /root/roboshop-shell/shipping.service /etc/systemd/system/shipping.service &>>${log_file}
-  echo -e "${color} Reloading the Service${nocolor}"
-  systemctl daemon-reload &>>${log_file}
-  echo -e "${color} Installing MySQL${nocolor}"
-  yum install mysql -y &>>${log_file}
-  echo -e "${color} Loading Schema${nocolor}"
-  mysql -h mysql-dev.thisiszaheer.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>>${log_file}
-  echo -e "${color} Enable & Restart the Service${nocolor}"
-  systemctl enable shipping &>>${log_file}
-  systemctl restart shipping &>>${log_file}
+  mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
+
+ systemd_setup
+
+
+
 }
