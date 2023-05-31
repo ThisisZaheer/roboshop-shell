@@ -1,4 +1,4 @@
-color="\e[36m"
+color="\e[35m"
 nocolor="\e[0m"
 log_file="/tmp/roboshop.log"
 app_path="/app"
@@ -88,8 +88,9 @@ python()
 
   app_presetup
 
+  echo -e "${color} Installing the Python Dependcies${nocolor}"
   pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
-  echo -e "\e[33m Copying the Payment.service files\e[0m"
+
 
   systemd_setup
 }
