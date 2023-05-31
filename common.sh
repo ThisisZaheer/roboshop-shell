@@ -80,7 +80,16 @@ maven()
   mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
 
  systemd_setup
+}
+python()
+{
+  echo -e "${color} Installing Python 3.6 Version${nocolor}"
+  yum install python36 gcc python3-devel -y &>>/tmp/roboshop.log
 
+  app_presetup
 
-
+  echo -e "${color} Downloading the dependencies${nocolor}"
+  pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
+  echo -e "\e[33m Copying the Payment.service files\e[0m"
+  systemd_setup
 }
