@@ -43,7 +43,11 @@ systemd_setup()
 {
     echo -e "${color}Copy Service files ${nocolor}"
     cp /root/roboshop-shell/${component}.service /etc/systemd/system/${component}.service
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+    fi
     echo -e "${color}Start the ${component} Server ${nocolor}"
     systemctl daemon-reload &>>${log_file}
     systemctl enable ${component} &>>${log_file}
