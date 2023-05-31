@@ -88,8 +88,8 @@ python()
 
   app_presetup
 
-  echo -e "${color} Downloading the dependencies${nocolor}"
   pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
   echo -e "\e[33m Copying the Payment.service files\e[0m"
+
   systemd_setup
 }
