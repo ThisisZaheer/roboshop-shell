@@ -8,20 +8,36 @@ app_presetup()
 {
     echo -e "${color}Adding User ${nocolor}"
     useradd roboshop &>>${log_file}
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+    fi
 
     echo -e "${color}Removing default content ${nocolor}"
     rm -rf ${app_path} &>>${log_file}
     mkdir ${app_path}
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+    fi
     echo -e "${color}Downloading the ${component} content ${nocolor}"
     curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>${log_file}
     cd ${app_path}
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+   fi
     echo -e "${color}Extract the ${component} content ${nocolor}"
     cd ${app_path}
     unzip /tmp/${component}.zip &>>${log_file}
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+    fi
 }
 systemd_setup()
 {
@@ -32,7 +48,11 @@ systemd_setup()
     systemctl daemon-reload &>>${log_file}
     systemctl enable ${component} &>>${log_file}
     systemctl restart ${component} &>>${log_file}
-    echo $?
+    if [ S? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+    fi
 }
 nodejs()
 {
@@ -87,12 +107,20 @@ python()
 {
     echo -e "${color} Installing Python 3.6 Version${nocolor}"
     yum install python36 gcc python3-devel -y &>>/tmp/roboshop.log
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+    fi
     app_presetup
 
     echo -e "${color} Installing the Python Dependcies${nocolor}"
     pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
-    echo $?
+    if [ $? -eq 0 ]; then
+      echo SUCCESS
+    else
+      echo FAILURE
+    fi
 
     systemd_setup
 }
