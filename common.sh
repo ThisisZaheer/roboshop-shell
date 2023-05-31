@@ -34,63 +34,63 @@ systemd_setup()
 }
 nodejs()
 {
-  echo -e "${color}Configuration files ${nocolor}"
-  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
+    echo -e "${color}Configuration files ${nocolor}"
+    curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${log_file}
 
-  echo -e "${color}Installing NodeJS ${nocolor}"
-  yum install nodejs -y &>>${log_file}
+    echo -e "${color}Installing NodeJS ${nocolor}"
+    yum install nodejs -y &>>${log_file}
 
-  app_presetup
+    app_presetup
 
-  echo -e "${color}Installing NodeJS Depenencies ${nocolor}"
-  npm install &>>${log_file}
+    echo -e "${color}Installing NodeJS Depenencies ${nocolor}"
+    npm install &>>${log_file}
 
-  systemd_setup
+    systemd_setup
 }
 mongodb_schema_setup()
 {
-  echo -e "${color}Copy the MongoDB Repo Service ${nocolor}"
-  cp /root/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo
+    echo -e "${color}Copy the MongoDB Repo Service ${nocolor}"
+    cp /root/roboshop-shell/mongodb.repo /etc/yum.repos.d/mongo.repo
 
-  echo -e "${color}Install Mongodb Server ${nocolor}"
-  yum install mongodb-org-shell -y &>>${log_file}
+    echo -e "${color}Install Mongodb Server ${nocolor}"
+    yum install mongodb-org-shell -y &>>${log_file}
 
-  echo -e "${color}Schema files load ${nocolor}"
-  mongo --host mongodb-dev.thisiszaheer.online <${app_path}/schema/${component}.js &>>${log_file}
+    echo -e "${color}Schema files load ${nocolor}"
+    mongo --host mongodb-dev.thisiszaheer.online <${app_path}/schema/${component}.js &>>${log_file}
 }
 
 mysql_schema_setup()
 {
-  echo -e "${color} Installing MySQL${nocolor}"
-  yum install mysql -y &>>${log_file}
+    echo -e "${color} Installing MySQL${nocolor}"
+    yum install mysql -y &>>${log_file}
 
-  echo -e "${color} Loading Schema${nocolor}"
-  mysql -h mysql-dev.thisiszaheer.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>${log_file}
+    echo -e "${color} Loading Schema${nocolor}"
+    mysql -h mysql-dev.thisiszaheer.online -uroot -pRoboShop@1 < /app/schema/${component}.sql &>>${log_file}
 
 }
 maven()
 {
-  echo -e "${color} Installing Maven${nocolor}"
-  yum install maven -y &>>${log_file}
+    echo -e "${color} Installing Maven${nocolor}"
+    yum install maven -y &>>${log_file}
 
-  app_presetup
+    app_presetup
 
-  echo -e "${color} Installing Dependcies of Maven${nocolor}"
-  mvn clean package &>>${log_file}
-  mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
+    echo -e "${color} Installing Dependcies of Maven${nocolor}"
+    mvn clean package &>>${log_file}
+    mv target/${component}-1.0.jar ${component}.jar &>>${log_file}
 
- systemd_setup
+    systemd_setup
 }
 python()
 {
-  echo -e "${color} Installing Python 3.6 Version${nocolor}"
-  yum install python36 gcc python3-devel -y &>>/tmp/roboshop.log
+    echo -e "${color} Installing Python 3.6 Version${nocolor}"
+    yum install python36 gcc python3-devel -y &>>/tmp/roboshop.log
 
-  app_presetup
+    app_presetup
 
-  echo -e "${color} Installing the Python Dependcies${nocolor}"
-  pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
+    echo -e "${color} Installing the Python Dependcies${nocolor}"
+    pip3.6 install -r requirements.txt &>>/tmp/roboshop.log
 
 
-  systemd_setup
+    systemd_setup
 }
