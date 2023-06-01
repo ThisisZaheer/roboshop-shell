@@ -52,7 +52,7 @@ systemd_setup()
     systemctl daemon-reload &>>${log_file}
     systemctl enable ${component} &>>${log_file}
     systemctl restart ${component} &>>${log_file}
-    if [ S? -eq 0 ]; then
+    if [ $? -eq 0 ]; then
       echo SUCCESS
     else
       echo FAILURE
