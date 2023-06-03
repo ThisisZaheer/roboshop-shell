@@ -2,6 +2,11 @@ color="\e[35m"
 nocolor="\e[0m"
 log_file="/tmp/roboshop.log"
 app_path="/app"
+user_id=$(id -u)
+if [ $user_id eq 0 ]; then
+  echo user is running with sudo
+  exit 0
+fi
 
 stat_check(){
   if [ $1 -eq 0 ]; then
